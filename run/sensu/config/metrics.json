@@ -32,7 +32,7 @@
       "command": "dashboards-reporter.rb -l https://mt-dmz-bamagent01.nuance.com/grafana/#/dashboard/db/ab-monitoring,https://mt-dmz-bamagent01.nuance.com/kibana/#/dashboard/elasticsearch/Cassandra%20Cluster -w 10000",
       "interval": 43200,
       "subscribers": [
-        "ncs"
+        "monitoring"
       ],
       "handlers": ["dashboards-reporter"]
     }
