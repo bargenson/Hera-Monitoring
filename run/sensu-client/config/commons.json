@@ -1,5 +1,3 @@
 {
-  "graphite_url": "https://localhost:2003",
-  "fitnesse_url": "https://localhost:8888",
-  "screenshoter_url": "https://localhost/screenshoter"
+  "graphite_url": "http://graphite"
 }

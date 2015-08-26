@@ -1,0 +1,26 @@
+{
+    "thresholds": {
+        "linux": [
+            {
+                "name": "Disks Usage",
+                "target": "*.disk_usage.*.used_percentage",
+                "warning": {
+                    "greaterThan": 70
+                },
+                "critical": {
+                    "greaterThan": 90
+                }
+            },
+            {
+                "name": "Free Memory",
+                "target": "*.memory.free",
+                "warning": {
+                    "lowerThan": 30000000
+                },
+                "critical": {
+                    "lowerThan": 10000000
+                }
+            }
+        ]
+    }
+}

@@ -7,6 +7,10 @@
     "dashboards-reporter": {
       "type": "pipe",
       "command": "/etc/sensu/handlers/dashboards-reporter.rb"
+    },
+    "slack": {
+      "type": "pipe",
+      "command": "/etc/sensu/handlers/slack.rb"
     }
   }
 }

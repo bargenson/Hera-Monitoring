@@ -1,40 +1,104 @@
 {
   "checks": {
-    "ServiceA-SNMP-Metrics": {
+    "Disk-Metrics": {
       "type": "metric",
-      "command": "snmp-metrics-collector.rb -P 7161 -c serviceA",
-      "interval": 60,
-      "subscribers": [
-        "production"
-      ],
-      "handlers": ["relay"]
-    },
-    "ServiceB-SNMP-Metrics": {
-      "type": "metric",
-      "command": "snmp-metrics-collector.rb -P 7161 -c serviceB",
-      "interval": 60,
-      "subscribers": [
-        "production"
-      ],
-      "handlers": ["relay"]
-    },
-    "ServiceA-Graphite-Checks": {
-      "type": "check",
-      "command": "graphite-thresholds-check.rb -c serviceA",
+      "command": "disk-metrics.rb",
       "interval": 30,
       "subscribers": [
-        "production"
+        "linux"
       ],
-      "handlers": ["mailer"]
+      "handlers": ["relay"]
     },
-    "Dashboards-Reporter": {
+    "Disk-Usage-Metrics": {
       "type": "metric",
-      "command": "dashboards-reporter.rb -l https://mt-dmz-bamagent01.nuance.com/grafana/#/dashboard/db/ab-monitoring,https://mt-dmz-bamagent01.nuance.com/kibana/#/dashboard/elasticsearch/Cassandra%20Cluster -w 10000",
-      "interval": 43200,
+      "command": "disk-usage-metrics.rb",
+      "interval": 30,
+      "subscribers": [
+        "linux"
+      ],
+      "handlers": ["relay"]
+    },
+    "Interface-Metrics": {
+      "type": "metric",
+      "command": "interface-metrics.rb",
+      "interval": 30,
+      "subscribers": [
+        "linux"
+      ],
+      "handlers": ["relay"]
+    },
+    "Load-Metrics": {
+      "type": "metric",
+      "command": "load-metrics.rb",
+      "interval": 30,
+      "subscribers": [
+        "linux"
+      ],
+      "handlers": ["relay"]
+    },
+    "Memory-Metrics": {
+      "type": "metric",
+      "command": "memory-metrics.rb",
+      "interval": 30,
+      "subscribers": [
+        "linux"
+      ],
+      "handlers": ["relay"]
+    },
+    "Proc-Metrics": {
+      "type": "metric",
+      "command": "proc-status-metrics.rb -u root",
+      "interval": 30,
+      "subscribers": [
+        "linux"
+      ],
+      "handlers": ["relay"]
+    },
+    "Nginx-Metrics": {
+      "type": "metric",
+      "command": "nginx-metrics.rb -h localhost -q /nginx_status",
+      "interval": 30,
+      "subscribers": [
+        "nginx"
+      ],
+      "handlers": ["relay"]
+    },
+    "Docker-Metrics": {
+      "type": "metric",
+      "command": "metrics-docker-container.rb",
+      "interval": 30,
+      "subscribers": [
+        "docker"
+      ],
+      "handlers": ["relay"]
+    },
+    "HTTP-Check": {
+      "type": "check",
+      "command": "check-http.rb -u http://localhost/ -r -s",
+      "interval": 30,
+      "subscribers": [
+        "nginx", "apache"
+      ],
+      "handlers": ["mailer", "slack"]
+    },
+    "Linux-Generic-Checks": {
+      "type": "check",
+      "command": "graphite-thresholds-check.rb -c linux",
+      "interval": 30,
       "subscribers": [
         "monitoring"
       ],
-      "handlers": ["dashboards-reporter"]
+      "handlers": ["mailer", "slack"]
+    },
+    "WW-Betyou10lbs-Checks": {
+      "type": "check",
+      "command": "graphite-thresholds-check.rb -c ww-betyou10lbs-front, ww-betyou10lbs-wordpress",
+      "interval": 30,
+      "subscribers": [
+        "monitoring"
+      ],
+      "handlers": ["mailer", "slack"]
     }
   }
 }
+

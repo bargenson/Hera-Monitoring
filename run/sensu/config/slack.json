@@ -1,0 +1,7 @@
+{
+  "slack": {
+    "webhook_url": "https://hooks.slack.com/services/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",
+    "channel": "#monitoring", 
+    "bot_name": "hera"
+  }
+}

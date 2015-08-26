@@ -38,9 +38,9 @@ graphite:
 
 elasticsearch:
   image: elasticsearch:1.6
-  command: -Des.node.name="hera_elasticsearch_001" -Des.bootstrap.mlockall=true
+  command: -Des.node.name="hera_elasticsearch_001" 
   environment:
-   - ES_HEAP_SIZE=512m
+   - ES_HEAP_SIZE=64m
   volumes_from:
    - heramonitoring_elasticsearchdata_1
 
@@ -56,30 +56,30 @@ grafana:
   volumes:
    - ./grafana/config.js:/usr/share/grafana/config.js
 
-kibana3:
-  image: nuancemobility/kibana
-  volumes:
-   - ./kibana:/config
-
-kibana4:
-  image: kibana:4.1
-  links:
-   - elasticsearch
-
-logstash:
-  image: logstash:1.5.2
-  command: -f /config-dir/
-  environment:
-   - LS_HEAP_SIZE=2048m
-  links:
-   - elasticsearch
-  volumes:
-   - ./logstash/config:/config-dir
-   - ./mib:/mib
-   - /etc/hera/logstash/ssl:/etc/pki/tls
-  ports:
-   - "5000:5000/udp"
-   - "5001:5001"
+#kibana3:
+#  image: nuancemobility/kibana
+#  volumes:
+#   - ./kibana:/config
+#
+#kibana4:
+#  image: kibana:4.1
+#  links:
+#   - elasticsearch
+#
+#logstash:
+#  image: logstash:1.5.2
+#  command: -f /config-dir/
+#  environment:
+#   - LS_HEAP_SIZE=2048m
+#  links:
+#   - elasticsearch
+#  volumes:
+#   - ./logstash/config:/config-dir
+#   - ./mib:/mib
+#   - /etc/hera/logstash/ssl:/etc/pki/tls
+#  ports:
+#   - "5000:5000/udp"
+#   - "5001:5001"
 
 sensu:
   image: nuancemobility/sensu
@@ -102,6 +102,7 @@ uchiwa:
 sensuclient:
   image: nuancemobility/sensu-client
   links:
+   - rabbitmq
    - sensu
    - graphite
    - screenshoter
@@ -109,8 +110,6 @@ sensuclient:
    - ./sensu-client/config:/etc/sensu/conf.d
    - ./sensu-client/plugins:/etc/sensu/plugins
    - ./mib:/etc/sensu/mib
-  net: host
-  privileged: true
 
 cadvisor:
   image: google/cadvisor:0.15.1
@@ -125,8 +124,8 @@ monitoringproxy:
   links:
    - uchiwa
    - grafana
-   - kibana3
-   - kibana4
+#   - kibana3
+#   - kibana4
    - elasticsearch
    - cadvisor
    - graphite

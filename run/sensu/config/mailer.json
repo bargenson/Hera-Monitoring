@@ -1,11 +1,14 @@
 {
   "mailer": {
-    "admin_gui": "https://admin.example.com:8080/",
-    "mail_from": "sensu@example.com",
-    "mail_to": "brice.argenson@example.com;sylvain.boily@example.com",
-    "report_to": "brice.argenson@example.com",
-    "smtp_address": "smtp.example.com",
-    "smtp_port": "25",
-    "smtp_domain": "example.com"
+    "admin_gui": "https://monitoring.clevertoday.xyz/uchiwa/",
+    "mail_from": "Monitoring <intelligentaujourdhui@gmail.com>",
+    "mail_to": "brice@clevertoday.com",
+    "report_to": "brice@clevertoday.com",
+    "smtp_address": "smtp.gmail.com",
+    "smtp_port": "587",
+    "smtp_domain": "gmail.com",
+    "smtp_enable_starttls_auto": "true",
+    "smtp_username": "intelligentaujourdhui@gmail.com",
+    "smtp_password": "hdkwntjldmgsbfmd"
   }
 }

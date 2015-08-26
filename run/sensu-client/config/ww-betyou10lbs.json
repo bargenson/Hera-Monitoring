@@ -1,0 +1,38 @@
+{
+    "thresholds": {
+        "ww-betyou10lbs-front": [
+            {
+                "name": "HTTP Requests",
+                "target": "nonNegativeDerivative(ww-betyour10lbs-front.nginx.requests)",
+                "warning": {
+                    "greaterThan": 120000
+                },
+                "critical": {
+                    "greaterThan": 180000
+                }
+            },
+            {
+                "name": "Load",
+                "target": "ww-betyour10lbs-front.load_avg.five",
+                "warning": {
+                    "greaterThan": 1.8
+                },
+                "critical": {
+                    "greaterThan": 2
+                }
+            }
+        ],
+        "ww-betyou10lbs-wordpress": [
+            {
+                "name": "Load",
+                "target": "ww-betyour10lbs-wordpress.load_avg.five",
+                "warning": {
+                    "greaterThan": 0.8
+                },
+                "critical": {
+                    "greaterThan": 1
+                }
+            }
+        ]
+    }
+}
