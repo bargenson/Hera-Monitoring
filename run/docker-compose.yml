@@ -1,6 +1,11 @@
 carbonrelay:
   image: nuancemobility/carbon
+  restart: always
   command: relay
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   ports:
    - "2003:2003"
    - "2004:2004"
@@ -12,7 +17,12 @@ carbonrelay:
 
 carboncache1:
   image: nuancemobility/carbon
+  restart: always
   command: cache
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   volumes:
    - ./carbon/cache:/etc/carbon
   volumes_from:
@@ -20,7 +30,12 @@ carboncache1:
 
 carboncache2:
   image: nuancemobility/carbon
+  restart: always
   command: cache
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   volumes:
    - ./carbon/cache:/etc/carbon
   volumes_from:
@@ -28,6 +43,11 @@ carboncache2:
 
 graphite:
   image: nuancemobility/graphite-web
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   volumes:
    - ./graphite-web:/etc/graphite
   volumes_from:
@@ -38,14 +58,24 @@ graphite:
 
 elasticsearch:
   image: elasticsearch:1.6
-  command: -Des.node.name="hera_elasticsearch_001" 
+  restart: always
+  command: -Des.node.name="hera_elasticsearch_001"
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   environment:
-   - ES_HEAP_SIZE=64m
+   - ES_HEAP_SIZE=512m
   volumes_from:
    - heramonitoring_elasticsearchdata_1
 
 elasticsearchcurator:
   image: nuancemobility/elasticsearch-curator
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   links:
    - elasticsearch
   volumes:
@@ -53,36 +83,49 @@ elasticsearchcurator:
 
 grafana:
   image: nuancemobility/grafana
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   volumes:
    - ./grafana/config.js:/usr/share/grafana/config.js
 
-#kibana3:
-#  image: nuancemobility/kibana
-#  volumes:
-#   - ./kibana:/config
-#
-#kibana4:
-#  image: kibana:4.1
-#  links:
-#   - elasticsearch
-#
-#logstash:
-#  image: logstash:1.5.2
-#  command: -f /config-dir/
-#  environment:
-#   - LS_HEAP_SIZE=2048m
-#  links:
-#   - elasticsearch
-#  volumes:
-#   - ./logstash/config:/config-dir
-#   - ./mib:/mib
-#   - /etc/hera/logstash/ssl:/etc/pki/tls
-#  ports:
-#   - "5000:5000/udp"
-#   - "5001:5001"
+kibana3:
+  image: nuancemobility/kibana
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
+  volumes:
+   - ./kibana:/config
+
+logstash:
+  image: logstash:1.5.2
+  command: -f /config-dir/
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
+  links:
+   - elasticsearch
+  volumes:
+   - ./logstash/config:/config-dir
+   - ./mib:/mib
+   - /etc/hera/logstash/ssl:/etc/pki/tls
+  ports:
+   - "5000:5000/udp"
+   - "5001:5001"
 
 sensu:
   image: nuancemobility/sensu
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   links:
    - carbonrelay
    - rabbitmq
@@ -92,6 +135,11 @@ sensu:
 
 uchiwa:
   image: uchiwa/uchiwa
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   links:
    - sensu
   volumes:
@@ -101,6 +149,11 @@ uchiwa:
 
 sensuclient:
   image: nuancemobility/sensu-client
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   links:
    - rabbitmq
    - sensu
@@ -113,6 +166,11 @@ sensuclient:
 
 cadvisor:
   image: google/cadvisor:0.15.1
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   volumes:
    - /:/rootfs:ro
    - /var/run:/var/run:rw
@@ -121,11 +179,15 @@ cadvisor:
 
 monitoringproxy:
   image: nuancemobility/nginx
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   links:
    - uchiwa
    - grafana
-#   - kibana3
-#   - kibana4
+   - kibana3
    - elasticsearch
    - cadvisor
    - graphite
@@ -143,6 +205,11 @@ monitoringproxy:
 
 configsynchronizer:
   image: nuancemobility/hera-config-synchronizer
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   links:
    - elasticsearch
   environment:
@@ -151,8 +218,19 @@ configsynchronizer:
 
 screenshoter:
   image: nuancemobility/web-screenshoter
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
 
 rabbitmq:
   image: rabbitmq:3.5
+  restart: always
+  log_driver: "json-file"
+  log_opt:
+    max-size: "50m"
+    max-file: "100"
   ports:
    - "5672:5672"
+

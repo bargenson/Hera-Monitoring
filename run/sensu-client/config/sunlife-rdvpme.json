@@ -1,0 +1,16 @@
+{
+    "thresholds": {
+        "sunlife-rdv-pme": [
+            {
+                "name": "Load",
+                "target": "sunlife-rdv-pme.load_avg.one",
+                "warning": {
+                    "greaterThan": 1.8
+                },
+                "critical": {
+                    "greaterThan": 2
+                }
+            }
+        ]
+    }
+}

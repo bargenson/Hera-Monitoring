@@ -2,7 +2,7 @@
   "mailer": {
     "admin_gui": "https://monitoring.clevertoday.xyz/uchiwa/",
     "mail_from": "Monitoring <intelligentaujourdhui@gmail.com>",
-    "mail_to": "brice@clevertoday.com",
+    "mail_to": "brice@clevertoday.com, eric@clevertoday.com",
     "report_to": "brice@clevertoday.com",
     "smtp_address": "smtp.gmail.com",
     "smtp_port": "587",

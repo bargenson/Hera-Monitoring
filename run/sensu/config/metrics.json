@@ -72,6 +72,15 @@
       ],
       "handlers": ["relay"]
     },
+    "MongoDB-Metrics": {
+      "type": "metric",
+      "command": "mongodb-metrics.rb",
+      "interval": 30,
+      "subscribers": [
+        "disable"
+      ],
+      "handlers": ["relay"]
+    },
     "HTTP-Check": {
       "type": "check",
       "command": "check-http.rb -u http://localhost/ -r -s",
@@ -92,7 +101,25 @@
     },
     "WW-Betyou10lbs-Checks": {
       "type": "check",
-      "command": "graphite-thresholds-check.rb -c ww-betyou10lbs-front, ww-betyou10lbs-wordpress",
+      "command": "graphite-thresholds-check.rb -c ww-betyou10lbs-front,ww-betyou10lbs-wordpress,ww-betyou10lbs-socialaggregator",
+      "interval": 30,
+      "subscribers": [
+        "monitoring"
+      ],
+      "handlers": ["mailer", "slack"]
+    },
+    "SunLife-Rendez-vous-PME-Checks": {
+      "type": "check",
+      "command": "graphite-thresholds-check.rb -c sunlife-rdv-pme",
+      "interval": 30,
+      "subscribers": [
+        "monitoring"
+      ],
+      "handlers": ["mailer", "slack"]
+    },
+    "AC-Students-Checks": {
+      "type": "check",
+      "command": "graphite-thresholds-check.rb -c ac-students-mongodb,ac-students-wordpress,ac-students-node,ac-students-proxy",
       "interval": 30,
       "subscribers": [
         "monitoring"

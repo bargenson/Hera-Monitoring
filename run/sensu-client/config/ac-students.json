@@ -1,0 +1,132 @@
+{
+    "thresholds": {
+        "ac-students-proxy": [
+            {
+                "name": "HTTP Requests",
+                "target": "nonNegativeDerivative(ac-students-proxy.nginx.requests)",
+                "warning": {
+                    "greaterThan": 100000
+                },
+                "critical": {
+                    "greaterThan": 120000
+                }
+            },
+            {
+                "name": "Load",
+                "target": "ac-students-proxy.load_avg.one",
+                "warning": {
+                    "greaterThan": 1.8
+                },
+                "critical": {
+                    "greaterThan": 2
+                }
+            }
+        ],
+        "ac-students-wordpress": [
+            {
+                "name": "Load",
+                "target": "ac-students-wordpress.load_avg.one",
+                "warning": {
+                    "greaterThan": 1.8
+                },
+                "critical": {
+                    "greaterThan": 2
+                }
+            }
+        ],
+        "ac-students-node": [
+            {
+                "name": "Load",
+                "target": "ac-students-node.load_avg.one",
+                "warning": {
+                    "greaterThan": 1.8
+                },
+                "critical": {
+                    "greaterThan": 2
+                }
+            },
+            {
+                "name": "Authentication failures",
+                "target": "nonNegativeDerivative(ac-students-node.authentication.failure)",
+                "warning": {
+                    "greaterThan": 25
+                },
+                "critical": {
+                    "greaterThan": 40
+                }
+            },
+            {
+                "name": "Aeroplan failures",
+                "target": "sumSeries(nonNegativeDerivative(ac-students-node.aeroplan.*.*.failure))",
+                "warning": {
+                    "greaterThan": 30
+                },
+                "critical": {
+                    "greaterThan": 40
+                }
+            },
+            {
+                "name": "Registration failures",
+                "target": "nonNegativeDerivative(ac-students-node.registration.failure)",
+                "warning": {
+                    "greaterThan": 15
+                },
+                "critical": {
+                    "greaterThan": 25
+                }
+            },
+            {
+                "name": "Available Promocodes",
+                "target": "ac-students-node.promocode.*.count",
+                "warning": {
+                    "lowerThan": 20
+                },
+                "critical": {
+                    "lowerThan": 5
+                }
+            },
+	    {
+                "name": "Flight Discount Promocodes",
+                "target": "ac-students-node.promocode.FlightDiscount.count",
+                "warning": {
+                    "lowerThan": 5000
+                },
+                "critical": {
+                    "lowerThan": 100
+                }
+            },
+            {
+                "name": "Docker disk",
+                "target": "aliasByNode(ac-students-node.disk_usage.root.var.lib.docker.used_percentage, 0)",
+                "warning": {
+                    "greaterThan": 75
+                },
+                "critical": {
+                    "greaterThan": 85
+                }
+            }
+        ],
+        "ac-students-mongodb": [
+            {
+                "name": "Load",
+                "target": "ac-students-mongo.load_avg.one",
+                "warning": {
+                    "greaterThan": 0.8
+                },
+                "critical": {
+                    "greaterThan": 1
+                }
+            },
+            {
+                "name": "Mongo Disk",
+                "target": "aliasByNode(ac-students-mongo.disk_usage.root.var.lib.mongodb.used_percentage, 0)",
+                "warning": {
+                    "greaterThan": 75
+                },
+                "critical": {
+                    "greaterThan": 90
+                }
+            }
+        ]
+    }
+}

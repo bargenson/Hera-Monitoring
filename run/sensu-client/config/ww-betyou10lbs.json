@@ -13,7 +13,7 @@
             },
             {
                 "name": "Load",
-                "target": "ww-betyour10lbs-front.load_avg.five",
+                "target": "ww-betyour10lbs-front.load_avg.one",
                 "warning": {
                     "greaterThan": 1.8
                 },
@@ -25,12 +25,24 @@
         "ww-betyou10lbs-wordpress": [
             {
                 "name": "Load",
-                "target": "ww-betyour10lbs-wordpress.load_avg.five",
+                "target": "ww-betyour10lbs-wordpress.load_avg.one",
                 "warning": {
-                    "greaterThan": 0.8
+                    "greaterThan": 0.9
                 },
                 "critical": {
                     "greaterThan": 1
+                }
+            }
+        ],
+        "ww-betyou10lbs-socialaggregator": [
+            {
+                "name": "Load",
+                "target": "ww-betyou10lbs-socialaggregator.load_avg.one",
+                "warning": {
+                    "greaterThan": 1.8
+                },
+                "critical": {
+                    "greaterThan": 2
                 }
             }
         ]

@@ -5,10 +5,10 @@
                 "name": "Disks Usage",
                 "target": "*.disk_usage.*.used_percentage",
                 "warning": {
-                    "greaterThan": 70
+                    "greaterThan": 80
                 },
                 "critical": {
-                    "greaterThan": 90
+                    "greaterThan": 95
                 }
             },
             {
